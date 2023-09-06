@@ -1,0 +1,158 @@
+{% extends 'enquiry/index.html' %}
+{% load static %}
+{% block breadcrumb %}
+
+<a class="btn btn-primary" href="{% url 'emanage:enq_list' %}">Back</a>
+
+{% endblock breadcrumb %}
+
+{% block content %}
+
+<style>
+    .container {
+        border: 2px solid black;
+        border-radius: 25px;
+        height: 100%;
+
+    }
+</style>
+
+<body>
+    <div class="container">
+        <center>
+            <h2>ENQUIRY FORM</h2>
+        </center>
+        <form action="" method="post" class="needs-validation">
+            {% csrf_token %}
+            <div class="mb-2 row">
+                <label for="gender" class="col-sm-2 col-form-label">Mr/Mrs.</label>
+                <div class="col-md-3">
+                    <select class="form-select" name="gender" >
+                        <option>{{enq_status.gender}}</option>
+                       
+                     
+                    </select>
+                </div> <br> <br>
+                <div class="mb-2 row">
+
+                    <label for="fname" class="col-sm-2 col-form-label">First Name</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" id="fname" name="name" value="{{enq_status.name}}" readonly>
+                    </div>
+
+
+                 
+
+
+                    
+                </div>
+                <div class="mb-2 row">
+
+                    <label for="gender" class="col-sm-2 col-form-label">Gender</label>
+                    <div class="col-md-2">
+                        <input type="text" name="gender" class="form-control"  value="{{enq_status.gender}}" readonly>
+                     
+                    </div>
+
+                    <label for="email" class="col-sm-2 col-form-label">Email ID</label>
+                    <div class="col-md-6">
+                        <input type="email" class="form-control" id="email" name="email" value="{{enq_status.email}}" 
+                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" readonly>
+                    </div>
+                </div>
+                <div class="mb-2 row">
+
+                    <label for="mobile" class="col-sm-2 col-form-label">Enter Mobile Number</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="mobile" name="mobile" pattern="[7-9]{1}[0-9]{9}" value="{{enq_status.mobile}}" 
+                            readonly>
+                    </div>
+                    <label for="whatsapp" class="col-sm-2 col-form-label">Whatsapp Number</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="whatsapp" pattern="[7-9]{1}[0-9]{9}"
+                            name="whatsapp" value="{{enq_status.whatsapp}}" readonly>
+                    </div>
+                </div>
+                <div class="mb-2 row">
+                    <label for="media" class="col-md-4 col-form-label">From where you get to know about sumago
+                        Infotech</label>
+                    <div class="col-md-8">
+                       <select class="form-select" name="media">
+                            <option>{{enq_status.media}}</option>
+                           
+                         
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-2 row">
+
+                    <label for="qualification" class="col-sm-2 col-form-label">Qualification</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control"  name="qualification" value="{{enq_status.qualification}}" readonly>
+                    </div>
+                    <label for="skill" class="col-sm-2 col-form-label">Technical Skill Set</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control"  name="skill" value="{{enq_status.skill}}" readonly>
+                    </div>
+                </div>
+                <div class="mb-2 row">
+
+                    <label for="certificate" class="col-sm-2 col-form-label">Certificate Deatails </label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control"  name="certificate" value="{{enq_status.certificate}}" readonly>
+                    </div>
+                    <label for="interest" class="col-sm-2 col-form-label">Area of Interest</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control"  name="interest" value="{{enq_status.interest}}" readonly>
+                    </div>
+                </div>
+                <div class="mb-2 row">
+
+                    <label for="reference" class="col-sm-2 col-form-label">Referance If any </label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control"  name="reference" value="{{enq_status.reference}}" readonly>
+                    </div>
+                    <label for="remark" class="col-sm-2 col-form-label">Special Remarks</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control"  name="remark" value="{{enq_status.remark}}" readonly>
+                    </div>
+                </div>
+                <div class="mb-2 row">
+                    <label for="course" class="col-md-4 col-form-label">select Which Intership candiate
+                        Finalized</label>
+                    <div class="col-md-8">
+                        <select class="form-select" name="Cource_name" disabled>
+                           
+                            <option>{{enq_status.Cource_name}}</option>
+                           
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <a href="{% url 'emanage:enq_list' %}" type="submit" class="btn btn-primary">Save & Close</a>
+
+                        
+                    </div>
+                   
+                    <div class="col-md-4">
+                    
+                        {% if enq_status.enquiry_Status == 'Pending' %}
+                     
+                           <input type="submit"   class="btn btn-primary">
+                        {% else %}
+                            <input type="submit" class="btn btn-primary" >
+                        {% endif %}
+                                       
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <a href="{% url 'emanage:enq_list' %}" class="btn btn-primary">Close</a>
+
+                    </div>
+
+                </div>
+        </form>
+    </div>
+</body>
+{% endblock %}

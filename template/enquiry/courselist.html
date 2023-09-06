@@ -1,0 +1,38 @@
+{% extends 'enquiry/index.html' %}
+
+
+{% block title %}Total Course{% endblock title %}
+
+{% block breadcrumb %}
+<a class="btn btn-primary" href="{% url 'emanage:addcourse' %}"><i class="fas fa-plus"></i> Add</a>
+<a class="btn btn-primary" href="{% url 'emanage:home' %}"> Back</a>
+  
+{% endblock breadcrumb %}
+{% block content %}
+<div class="table-responsive"> 
+<table class="table table-striped" id="enqtable">
+  <thead style="position:sticky;top:10px;">
+    <tr>
+       <th>Id</th>
+      <th>Course Name</th>
+      <th>Course Fees</th>
+      <th>Duration</th>
+      <th>Edit</th>
+     
+    </tr>
+  </thead>
+  <tbody>
+  {% for xyz in all_course %}
+    <tr>
+        
+        <td>{{xyz.id}}</td>
+        <td >{{xyz.Cource_name}}</td>
+        <td>{{xyz.fees}}</td>
+        <td>{{xyz.durations}}</td>
+        <td><a href="{% url 'emanage:updatecourse' xyz.id %}"><i class="fa-regular fa-pen-to-square"></i></i></a></td>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}
+

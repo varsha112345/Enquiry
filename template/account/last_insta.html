@@ -1,0 +1,93 @@
+{% extends 'enquiry/account_home.html' %}
+
+
+{% load static %}
+{% block breadcrumb %}
+
+<a class="btn btn-primary" href="{% url 'enq:paymentlist' %}">Back</a>
+  
+{% endblock breadcrumb %}
+{% block content %}
+    <style>
+        .container {
+            border: 2px solid black;
+            border-radius: 25px;
+            height: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>Payment Details</h3>
+    {% if amount_paid %}
+        <p>Total amount Paid: {{amount_paid}}</p>
+    {% endif %}
+   
+    {% if previous_payment %}
+        <p>Remaning Amount: {{previous_payment.amount_remaining }}</p>
+    {% endif %}
+    <center>
+        <h2>Account Form</h2>
+    </center>
+    <div class="container p-3">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="mb-2 row">
+                <label for=" " class="col-sm-2 col-form-label">Mr. & Mrs.</label>
+                <div class="col-md-3">
+                    <select class="form-select" name="gender">
+                        <option value="">{{enquiry.gender}}</option>
+                       
+                    </select>
+                </div> <br> <br>
+                <div class="mb-2 row">
+
+                    <label for="fname" class="col-sm-2 col-form-label">First Name</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" id="fname" name="name"  value="{{enquiry.name}}" readonly>
+                    </div>
+                </div>
+                <div class="mb-2 row">
+
+                    <label for="final" class="col-sm-2 col-form-label">Finalized Internship</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control"  name="Cource_name" value="{{enquiry.Cource_name}}" readonly>
+                    </div>
+                    <label for="total_amount" class="col-sm-2 col-form-label">Total Ammount</label>
+                   
+                    <div class="col-md-4">
+                      
+                        <input type="text" class="form-control" name="total_amount" value="{{data1.total_amount}}"  readonly>
+                    </div>
+                    <label for="total_installment" class="col-sm-2 col-form-label">Total Installment</label>
+                   
+                    <div class="col-md-4">
+                      
+                        <input type="text" class="form-control" name="total_installment" value="{{data.total_installment}}"  readonly>
+                    </div>
+                    <label for="amount" class="col-sm-2 col-form-label">  Paid Amount</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control"  name="amount" value="{{amt.amount}}" readonly>
+                        </div>
+            </div>
+                        <div class="mb-2 row">
+                            <label for="four_installment" class="col-sm-2 col-form-label">Four Installment Amount</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control"  name="four_installment" value="{{data1.four_installment}}" readonly>
+                            </div>
+                            <label for="four_date" class="col-sm-2 col-form-label">4th Installment Tentative Date</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control"  name="four_date" value="{{data1.four_date|date:'Y-m-d'}}" readonly>
+                            </div> 
+                
+                    <hr>  
+                 
+        </form>
+    </div>
+{% endblock %}
+
+
+</div>
+                   
+                   

@@ -1,0 +1,157 @@
+{% extends 'enquiry/index.html' %}
+
+{% load static %}
+{% block breadcrumb %}
+
+<a class="btn btn-primary" href="{% url 'emanage:userlist' %}">Back</a>
+  
+{% endblock breadcrumb %}
+{% block content %}
+
+    <link rel="stylesheet" href="{% static 'dist/css/add_user.css' %}">
+  
+
+<body>
+
+  <section class="vh-50 gradient-custom">
+    <div class="container py-5 h-100">
+      <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12 col-lg-9 col-xl-7">
+          <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+            <div class="card-body p-4 p-md-5">
+              <center>
+                <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">  User Creation Form </h3>
+              </center>
+              <form method="post">
+                {% csrf_token %}
+                <div class="row">
+                  <div class="col-md-6">
+
+                    <div class="form-outline">
+                      <label class="form-label" for="firstName"> <b> First Name</b></label>
+                      <input type="text" id="firstName" name="firstName" class="form-control form-control-lg" pattern="[a-zA-Z]+" required>
+                    </div>
+
+                  </div>
+                  <div class="col-md-6 ">
+
+                    <div class="form-outline">
+                      <label class="form-label" for="lastName"> <b> Last Name</b></label>
+                      <input type="text" id="lastName" name="lastName" class="form-control form-control-lg"  pattern="[a-zA-Z]+" required>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-4 d-flex align-items-center">
+
+                    <div class="form-outline datepicker ">
+                      <label for="birthdayDate" class="form-label"> <b> DOB</b></label>
+                      <input type="date" name="dob" class="form-control form-control-lg"  required>
+                    </div>
+
+                  </div>
+                  <div class="col-md-6 ">
+
+                    <h6 class="mb-2 pb-1"> <b> Gender:</b> </h6>
+
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="Gender" value="Female" required>
+                      <label class="form-check-label" for="femaleGender">  Female</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="Gender"  value="Male" required>
+                      <label class="form-check-label" for="maleGender"> Male</label>
+                    </div>
+
+
+
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6  pb-2">
+
+                    <div class="form-outline">
+                      <label class="form-label" for="email"> <b> Email</b></label>
+                      <input type="email" id="emailAddress" name="email" class="form-control form-control-lg" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+                    </div>
+
+                  </div>
+                  <div class="col-md-6  pb-2">
+
+                    <div class="form-outline">
+                      <label class="form-label" for="Contact_number"> <b> Phone Number</b></label>
+                      <input type="tel" id="phoneNumber" name="Contact_number" pattern="[6789][0-9]{9}" class="form-control form-control-lg" required>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 ">
+
+                    <div class="form-outline">
+                      <label class="form-label" for="department"> <b> Department</b></label>
+                      <select class="form-select"  name="department">
+                        <option value="">Select-An-Option</option>
+                        <option value="IT">IT Department</option>
+                        <option  value="account">Account Department</option>
+                        <option  value="Training">Training Department</option>
+                        <option  value="Project">Project Management</option>
+                        <option  value="HR">HR Clerance</option>
+
+                        
+                    </select>
+                    </div>
+
+                  </div>
+                  <div class="col-md-6 ">
+
+                    <div class="form-outline">
+                      <label class="form-label" for="designation"> <b> designation</b></label>
+                      <input type="text"  name="designation" class="form-control form-control-lg"  required>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 ">
+
+                    <div class="form-outline">
+                      <label class="form-label" for="password1"> <b> Password</b></label>
+                      <input type="password" name="password1" class="form-control form-control-lg" required>
+                    </div>
+
+                  </div>
+                  <div class="col-md-6 ">
+
+                    <div class="form-outline">
+                      <label class="form-label" for="password2"> <b> Confirm password</b></label>
+                      <input type="password"  name="password2" class="form-control form-control-lg" required>
+                    </div>
+
+                  </div>
+                </div>
+                <div>
+                  <div class="col-md-6 ">
+                    <label for="" class="form-label"><b> Profile picture</b></label>
+                    <input type="file" name="profile_pic">
+                </div>
+                <center><div class="mt-4 pt-2">
+                  <input class="btn btn-primary btn-lg" type="submit" value="submit" />
+                </div></center>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+
+
+{% endblock %}

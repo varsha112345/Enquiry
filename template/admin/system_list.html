@@ -1,0 +1,45 @@
+{% extends 'admin/base.html' %}
+
+
+{% block title %}Asset List{% endblock title %}
+
+{% block breadcrumb %}
+<a class="btn btn-primary" href="{% url 'emanage:admin_page' %}"> Back</a>
+  
+{% endblock breadcrumb %}
+{% block content %}
+      
+
+<div class="table-responsive"> 
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Sr No</th>
+      <th>Asset Name</th>
+      <th>Model Name</th>
+      <th>Description</th>
+      <th>Making Year</th>
+      <th>Serial No.</th>
+      <th>Condition</th>
+       
+    </tr>
+  </thead>
+  <tbody>
+  {% for xyz in all_data %}
+    <tr>
+        <td>{{xyz.enquiry.Full_Name}}</td>
+        <td>{{xyz.a_name}}</td>
+        <td >{{xyz.model_name}}</td>
+        <td>{{xyz.a_description}}</td>
+        <td>{{xyz.make_year}}</td>
+        <td>{{xyz.serial_no}}</td>
+        <td>{{xyz.condition}}</td>
+       
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+
+{% endblock %}
+

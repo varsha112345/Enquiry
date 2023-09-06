@@ -1,0 +1,65 @@
+{% extends 'Training/tr_home.html' %}
+
+{% block title %}Training Detail{% endblock title %}
+
+{% block breadcrumb %}
+ <a class="btn btn-primary" href="{% url 'emanage:training_home' %}">Back</a>
+{% endblock breadcrumb %}
+
+{% block content %}
+{% for i in enquiry %}
+    <h3><b>Candidate Name:</b> {{ i.Full_Name }}</h3>
+{% endfor %}
+
+<div class="table-responsive">
+    <table class="table table-striped" id="enqtable">
+        <thead>
+            <tr>
+                <th>Sr.No</th>
+                <th>Trainer Name</th>
+                <th>Phase I</th>
+                <th>Phase I Date</th>
+                <th>Phase II</th>
+                <th>Phase II Date</th>
+                <th>Phase III</th>
+                <th>Phase III Date</th>
+                <th>Phase IV</th>
+                <th>Phase IV Date</th>
+                <th>Continue</th>
+            </tr>
+        </thead>
+        {% for i in mydata %}
+          
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.trainer_name.trainer_name}}</td>
+                <td>{{i.phase_I}}</td>
+                <td>{{i.date1}}</td>
+                <td>{{i.phase_II}}</td>
+                <td>{{i.date2}}</td>
+                <td>{{i.phase_III}}</td>
+                <td>{{i.date3}}</td>
+                <td>{{i.phase_IV}}</td>
+                <td>{{i.date4}}</td>
+                <td>
+                    {% if forloop.counter == 1 %}
+                        <a href="{% url 'emanage:phase_first' i.enquiry.id %}" class="btn btn-success">Phase First</a>
+                    {% elif forloop.counter == 2 %}
+                        <a href="{% url 'emanage:phase_second' i.enquiry.id %}" class="btn btn-success">Phase Second</a>
+                    {% elif forloop.counter == 3 %}
+                        <a href="{% url 'emanage:phase_third' i.enquiry.id %}" class="btn btn-success">Phase Third</a>
+                    {% elif forloop.counter == 4 %}
+                        <a href="{% url 'emanage:phase_four' i.enquiry.id %}" class="btn btn-success">Phase Four</a>
+
+                    {% endif %}
+
+                </td>
+            </tr>
+          
+        {% endfor %}
+    
+    
+ </tbody>
+</table>
+</div>
+{% endblock %}

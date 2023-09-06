@@ -1,0 +1,35 @@
+{% extends 'admin/base.html' %}
+
+
+{% block title %}Total User{% endblock title %}
+
+{% block breadcrumb %}
+<a class="btn btn-primary" href="{% url 'emanage:register' %}"><i
+  class="fas fa-plus"></i>Add</a>
+<a class="btn btn-primary" href="{% url 'emanage:admin_page' %}"> Back</a>
+  
+{% endblock breadcrumb %}
+{% block content %}
+<div class="table-responsive"> 
+<table class="table table-striped" id="enqtable">
+  <thead style="position:sticky;top:10px;">
+    <tr>
+       <th>Id</th>
+      <th>User Name</th>
+      <th>Email Id</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for xyz in all_user %}
+    <tr>
+        
+        <td>{{xyz.id}}</td>
+        <td >{{xyz.username}}</td>
+        <td>{{xyz.email}}</td>
+     </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}
+

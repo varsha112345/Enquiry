@@ -1,0 +1,65 @@
+{% extends 'Training/tr_home.html' %}
+{% block title %}Training Details{% endblock title %}
+
+{% block breadcrumb %}
+<a class="btn btn-primary" href="{% url 'emanage:add_trainer' %}"><i class="fas fa-plus"></i>Add</a>
+<a class="btn btn-primary" href="{% url 'emanage:training_home' %}"> Back</a>
+{% endblock breadcrumb %}
+{% block content %}
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Student Name</th>
+        <th>Traning Phase I</th>
+        <th>Traning Phase II</th>
+        <th>Traning Phase III</th>
+        <th>Traning Phase IV</th>
+        <th>Status</th>
+        <th>Status List</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+
+        {% for xyz in all_list %}
+        <td>{{xyz.enquiry.Full_Name}}</td>
+        <td>{{xyz.phase_I}}</td>
+        <td>{{xyz.phase_II}}</td>
+        <td>{{xyz.phase_III}}</td>
+        <td>{{xyz.phase_IV}}</td>
+        <td>{{xyz.training_status}}</td>
+
+        <td>{% if xyz.training_status == 'Phase_IV_Completed' %}
+          <button class="btn btn-success">Done</button>
+          {% else %}
+          <a href="{% url 'emanage:t_status' id=xyz.enquiry.id %}" class="btn btn-primary">Continue</a>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+    {% else %}
+       <li class="page-item disabled"><span class="page-link">Previous</span></li>
+    {% endif %}
+
+    {% for i in page_obj.paginator.page_range %}
+       {% if page_obj.number == i %}
+      <li class="page-item active"><span class="page-link">{{ i }}</span></li>
+       {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+       <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+    {% else %}
+       <li class="page-item disabled"><span class="page-link">Next</span></li>
+    {% endif %}
+{% endblock %}

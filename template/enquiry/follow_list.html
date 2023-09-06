@@ -1,0 +1,71 @@
+{% extends 'enquiry/index.html' %}
+{% load static %}
+{% block title %}Follow Up List{% endblock title %}
+
+{% block breadcrumb %}
+
+<a class="btn btn-primary" href="{% url 'emanage:enq_list' %}">Back</a>
+
+{% endblock breadcrumb %}
+
+{% block content %}
+
+{% for stud in student %}
+<h3><b>Candiate Name: </b>{{stud.Full_Name}}</h3>
+<h3><b>Contact Number: </b>{{stud.Contact_Number}} </h3>
+{% endfor %}
+
+<div class="table-responsive"  > 
+  <table class="table table-striped" id="enqtable">
+    {% if follow_list %}
+    <thead>
+      <tr>
+        
+        <th>Name</th>
+        <th>Next Follow up</th>
+        <th>Next Followup Time</th>
+        <th>Reason</th>
+        <th>Followup Remark </th>
+        <th>Followup Status</th>
+       
+      </tr>
+    </thead>
+    <tbody>
+      
+      {% for up in follow_list %}
+      <tr data-href="{% url 'emanage:follow' up.pk  %}">
+
+        <td>{{up.enquiry.Full_Name}}</td>
+        <td>{{up.date}}</td>
+        <td>{{up.time}}</td>
+        <td>{{up.reason}}</td>
+        <td> {{up.remark}}</td>
+        <td>
+        
+          {% if up.Followup_Status == 'Pending' %}
+             <a href="{% url 'emanage:status_chnage' id=up.enquiry.id %}"  class="btn btn-danger">Next Follow Up</a> 
+           
+            {% if up.Enroll_flag %}
+                <button class="btn btn-success" disabled>Enrolled</button>
+            {% else %}
+               <a href="{% url 'emanage:accontpage' id=up.enquiry.id %}" class="btn btn-success">Enroll</a>
+            {% endif %}
+          {% else %}
+            <button  class="btn btn-success" disabled>Done</button>
+           
+          {% endif %}
+          
+        </td>
+       </tr>
+        {% endfor %}
+     </tbody>
+  {% else %}
+    <td><button class="btn btn-danger">No Followup Available</button></td>
+  {% endif %}
+  </table>
+
+</div>
+
+
+       
+{% endblock %}

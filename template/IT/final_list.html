@@ -1,0 +1,46 @@
+{% extends 'IT/it_home.html' %}
+
+
+{% block title %}System Not Allocated List{% endblock title %}
+
+{% block breadcrumb %}
+
+<a class="btn btn-primary" href="{% url 'emanage:it_home' %}">Back</a>
+  
+{% endblock breadcrumb %}
+{% block content %}
+<div class="table-responsive"> 
+<table class="table table-striped" id="enqtable">
+  <thead style="position:sticky;top:10px;">
+    <tr>
+     
+      <th>Id</th>
+      <th>Candidate name</th>
+      <th>Finilezed Internship</th>
+      <th>Enquiry Status</th>
+      <th>System Allocate</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+  {% for xyz in final %}
+    <tr>
+        
+        <td>{{xyz.id}}</td>
+        <td >{{xyz.Full_Name}}</td>
+        <td>{{xyz.Cource_name}}</td>
+        <td>
+           {{xyz.enquiry_Status}}
+        </td>
+         <td>
+          {% if xyz.enquiry_Status == 'Finalized' %} 
+             <a href="{% url 'emanage:system_allocation' xyz.id %}" class="btn btn-primary">Allocate</a></td>
+          {% else %}
+             <button class="btn btn-success" disabled>Done</button>
+          {% endif %}</td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}

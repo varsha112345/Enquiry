@@ -1,0 +1,106 @@
+{% extends 'enquiry/index2.html' %}
+
+{% block title %}Fees Detail{% endblock title %}
+
+{% block breadcrumb %}
+ <a class="btn btn-primary" href="{% url 'emanage:account_home' %}">Back</a>
+{% endblock breadcrumb %}
+
+{% block content %}
+
+{% for i in enquiry %}
+    <h4 style="margin-left:12px;"><b>Candidate Name: </b>{{ i.Full_Name }} </h4> 
+    <h4 style="margin-left:12px;"><b>Finalized Internship: </b> {{ i.Cource_name }}</h4>
+   <h4 style="margin-left:12px;"><b>Mobile Number: </b> {{ i.Contact_Number }}</h4>
+{% endfor %}
+
+<div class="table-responsive">
+    <table class="table table-striped" id="enqtable">
+        <thead>
+            <tr>
+                <th>Sr.No.</th>
+                <th>Total Installment</th>
+                <th>Paid Amount</th>
+                <th>Paid Date</th>
+                <th>Remark</th>
+                <th>Total Fees</th>
+                <th>Payment status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody> 
+            {% for i in fees_record %}
+                <tr data-href="{% url 'emanage:accontpage' i.id %}">
+                  
+                        <td>{{forloop.counter}}</td>
+                        <td>{{i.total_installment}}</td>
+                        <td>{{i.amount}}</td>
+                        <td>{{i.amount_date}}</td>
+                        <td>{{i.account_remark}}</td>
+                        <td>{{i.total_amount}}</td>
+                        <td>{{i.payment_status}}</td>
+                        <td> 
+                            {% if i.payment_status == 'Pending' %}
+                                  <a href="{% url 'emanage:first_installment' i.enquiry.id %}" class="btn btn-primary  button-class">Next Installment</a>
+                            {% elif i.payment_status == 'first_installment' %}
+                            
+                                <a href="{% url 'emanage:second_installment' i.enquiry.id %}" class="btn btn-primary  button-class">Next Installment</a>
+                            
+                            {% elif i.payment_status == 'second_installment' %}
+                        
+                              <a href="{% url 'emanage:third_installment' i.enquiry.id %}" class="btn btn-primary  button-class">Next Installment</a>
+                            {% elif i.payment_status == 'third_installment' %}
+                            
+                              <a href="{% url 'emanage:four_installment' i.enquiry.id %}" class="btn btn-primary  button-class">Next Installment</a>
+                            {% elif i.payment_status == 'fourth_installment' %} 
+                                <button id="doneButton" class="btn btn-success" style="display: none;" disabled>All Installments are done</button>
+                            {% else %}
+                               <button class="btn btn-success" disabled>Done</button>
+                            {% endif %}
+                          
+                
+                   
+             </td>
+         </tr>
+     {% endfor %}
+ </tbody>
+</table>
+</div>
+<script>
+    // Get all the buttons with the specified class ('button-class')
+    const buttons = document.querySelectorAll('.button-class');
+    // Variable to keep track of the current installment number
+    let currentInstallment = 1;
+    // Boolean flag to track if an installment is completed
+    let installmentCompleted = false;
+
+    // Function to disable all buttons after the given index
+    function disableButtonsAfter(index) {
+        for (let i = index; i < buttons.length; i++) {
+            buttons[i].setAttribute('disabled', true);
+        }
+    }
+
+    // Add event listeners to each button
+    buttons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+            // Check if an installment is already completed
+            if (!installmentCompleted) {
+                // Disable all buttons after the current installment
+                disableButtonsAfter(currentInstallment);
+                // Increment the current installment number
+                currentInstallment++;
+
+                // If the current installment is the last one, show the "Done" button
+                if (currentInstallment > 4) {
+                    buttons[index].style.display = 'none';
+                    document.getElementById('doneButton').style.display = 'block';
+                    // Set the installmentCompleted flag to true since all installments are completed
+                    installmentCompleted = true;
+                }
+            }
+        });
+    });
+</script>
+
+{% endblock %}

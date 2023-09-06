@@ -1,0 +1,67 @@
+{% extends 'IT/it_home.html' %}
+
+
+{% block title %}Asset List{% endblock title %}
+
+{% block breadcrumb %}
+<a class="btn btn-primary" href="{% url 'emanage:assert_creation' %}"><i
+    class="fas fa-plus"></i> Add</a>
+<a class="btn btn-primary" href="{% url 'emanage:it_home' %}"> Back</a>
+  
+{% endblock breadcrumb %}
+{% block content %}
+      
+
+<div class="table-responsive"> 
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Sr No</th>
+      <th>Asset Name</th>
+      <th>Model Name</th>
+      <th>Description</th>
+      <th>Making Year</th>
+      <th>Serial No.</th>
+      <th>Condition</th>
+       
+    </tr>
+  </thead>
+  <tbody>
+  {% for xyz in all_data %}
+    <tr>
+        <td>{{xyz.id}}</td>
+        <td>{{xyz.a_name}}</td>
+        <td >{{xyz.model_name}}</td>
+        <td>{{xyz.a_description}}</td>
+        <td>{{xyz.make_year}}</td>
+        <td>{{xyz.serial_no}}</td>
+        <td>{{xyz.condition}}</td>
+       
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+    {% else %}
+       <li class="page-item disabled"><span class="page-link">Previous</span></li>
+    {% endif %}
+
+    {% for i in page_obj.paginator.page_range %}
+       {% if page_obj.number == i %}
+      <li class="page-item active"><span class="page-link">{{ i }}</span></li>
+       {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+       <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+    {% else %}
+       <li class="page-item disabled"><span class="page-link">Next</span></li>
+    {% endif %}
+{% endblock %}
+

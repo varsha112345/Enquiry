@@ -1,0 +1,65 @@
+
+{% extends 'admin/base.html' %}
+
+
+{% block title %}Fees Detail{% endblock title %}
+
+{% block breadcrumb %}
+
+<a class="btn btn-primary" href="{% url 'emanage:admin_page' %}"> Back</a>
+
+{% endblock breadcrumb %}
+
+
+{% block content %}
+<div class="table-responsive">
+    <table class="table table-striped" id="enqtable">
+        <thead>
+            <tr>
+                <th>Name</th>
+              
+                <th>Total Installment</th>
+                <th>Amount Paid</th>
+                <th>Amount Date</th>
+                <th>Remark</th>
+                <th>payment Status</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in acc %}
+            <tr>
+                <td>{{i.enquiry.Full_Name}}</td>
+                <td>{{i.total_installment}}</td>
+                <td>{{i.amount}}</td>
+                <td>{{i.amount_date}}</td>
+                <td>{{i.account_remark}}</td>
+                <td>{{i.payment_status}}</td>
+               
+            {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+</div>
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+      {% if page_obj.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+      {% else %}
+         <li class="page-item disabled"><span class="page-link">Previous</span></li>
+      {% endif %}
+  
+      {% for i in page_obj.paginator.page_range %}
+         {% if page_obj.number == i %}
+        <li class="page-item active"><span class="page-link">{{ i }}</span></li>
+         {% else %}
+          <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+      {% endfor %}
+  
+      {% if page_obj.has_next %}
+         <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+      {% else %}
+         <li class="page-item disabled"><span class="page-link">Next</span></li>
+      {% endif %}
+{% endblock %}

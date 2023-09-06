@@ -1,0 +1,54 @@
+{% extends 'admin/base.html' %}
+{% load static %}
+{% block title %}Total Follow Up Pending List{% endblock title %}
+
+{% block breadcrumb %}
+
+<a class="btn btn-primary" href="{% url 'emanage:admin_page' %}">Back</a>
+
+{% endblock breadcrumb %}
+
+{% block content %}
+
+
+
+<div class="table-responsive">
+  <table class="table table-striped" id="enqtable">
+    {% if notdone %}
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Next Follow up</th>
+        <th>Next Followup Time</th>
+        <th>Reason</th>
+        <th>Followup Remark </th>
+        <th>Followup Status</th>
+
+      </tr>
+    </thead>
+    <tbody>
+
+      {% for up in notdone %}
+      <tr data-href="{% url 'emanage:follow' up.pk  %}">
+
+        <td>{{up.enquiry.Full_Name}}</td>
+        <td>{{up.date}}</td>
+        <td>{{up.time}}</td>
+        <td>{{up.reason}}</td>
+        <td> {{up.remark}}</td>
+        <td>{{up.Followup_Status}}</td>
+
+
+
+      </tr>
+      {% endfor %}
+
+    </tbody>
+    {% else %}
+    <td><Button class="btn btn-danger">No Information</Button></td>
+    {% endif %}
+</div>
+</table>
+
+
+{% endblock %}

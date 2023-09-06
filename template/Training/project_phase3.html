@@ -1,0 +1,24 @@
+{% extends 'Training/tr_home.html' %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <form action="" method="post">
+      {% csrf_token %}
+
+      <div class="form-group ">
+        <label for="phase_III" class="control-label">Project Phase III</label>
+        <div class="col-lg-6 col-sm-9">
+         <textarea name="phase_III" id=""  class="form-control" cols="30" rows="5"></textarea>
+        </div>
+      </div>
+      <div class="form-group ">
+        <label for="date3" class="control-label">Phase III Completed Date :</label>
+        <div class="col-lg-6 col-sm-9">
+          <input type="date" class="form-control" name="date3">
+        </div>
+      </div>
+      <input type="submit" class="btn btn-success">
+    </form>
+  </div>
+</div>
+{% endblock %}

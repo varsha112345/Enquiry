@@ -1,0 +1,47 @@
+{% extends 'enquiry/index.html' %}
+
+
+{% block title %}User List{% endblock title %}
+
+{% block breadcrumb %}
+<a class="btn btn-primary" href="{% url 'emanage:add_user' %}"><i
+    class="fas fa-plus"></i> Add</a>
+<a class="btn btn-primary" href="{% url 'emanage:userlist' %}"> Back</a>
+  
+{% endblock breadcrumb %}
+
+
+{% block content %}
+      
+
+<div class="table-responsive"> 
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th>contact No</th>
+      <th>Designation</th>
+      <th>Date Of Birth</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for xyz in all_user %}
+    <tr>
+        
+        <td>{{xyz.id}}</td>
+        <td >{{xyz.firstName}} {{xyz.lastname}}</td>
+        <td>{{xyz.email}}</td>
+        <td>{{xyz.Contact_number}}</td>
+        <td>{{xyz.designation}}</td>
+        <td>{{xyz.dob}}</td>
+        <td><a href="{% url 'enq:deleteUser' xyz.id %}" class="btn btn-primary"> Delete</a></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}
+

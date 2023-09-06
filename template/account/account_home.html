@@ -1,0 +1,16 @@
+{% extends 'enquiry/index2.html' %}
+{% block title %} <h1>Account Department</h1>{% endblock title %}</h1>
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Installment Pie Chart</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div>
+        {{ chart_html|safe }}
+    </div>
+</body>
+</html>
+{% endblock %}

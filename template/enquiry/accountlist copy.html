@@ -1,0 +1,50 @@
+{% extends 'enquiry/index2.html' %}
+
+
+{% block title %}Fees Detail{% endblock title %}
+
+{% block breadcrumb %}
+
+<a class="btn btn-primary" href="{% url 'enq:account_home' %}"> Back</a>
+
+{% endblock breadcrumb %}
+
+
+{% block content %}
+<div class="table-responsive">
+    <table class="table table-striped" id="enqtable">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>First installment Amout</th>
+                <th>Second installment Amount</th>
+                <th>Third Installment Amount</th>
+                <th>Four Installement Amount</th>
+                <th>Total Installment</th>
+                <th>Amount Paid</th>
+                <th>Amount Date</th>
+                <th>Remark</th>
+                <th>payment Status</th>
+                <th>Fees List</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in all_account %}
+            <tr>
+                <td>{{i.enquiry_id}}</td>
+                <td>{{i.first_installment}}</td>
+                <td>{{i.second_installment}}</td>
+                <td>{{i.third_installment}}</td>
+                <td>{{i.four_installment}}</td>
+                <td>{{i.total_installment}}</td>
+                <td>{{i.amount}}</td>
+                <td>{{i.amount_date}}</td>
+                <td>{{i.account_remark}}</td>
+                <td>{{i.payment_status}}</td>
+                <td><a href="{% url 'enq:feesList' id=i.enquiry_id %}" class="btn btn-primary">Continue</a></td>
+            {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

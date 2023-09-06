@@ -1,0 +1,9 @@
+url: '{% url "enq:get_data" %}',
+type: 'GET',
+data: { 'id': desktop_id },
+dataType: 'json',
+success: function(data) {
+    $('#field1').val(data.field1);
+    $('#field2').val(data.field2);
+    $('#field3').val(data.field3);
+},

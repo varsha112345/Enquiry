@@ -1,0 +1,68 @@
+{% extends 'HR/hr_home.html' %}
+
+
+{% block title %}Document List{% endblock title %}
+
+{% block breadcrumb %}
+<a class="btn btn-primary" href="{% url 'emanage:enq_doc' %}"><i
+    class="fas fa-plus"></i>Add Entry</a>
+<a class="btn btn-primary" href="{% url 'emanage:hr_home' %}"> Back</a>
+  
+{% endblock breadcrumb %}
+{% block content %}
+      
+
+<div class="table-responsive"> 
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Student Name</th>
+      <th>Appoinment Letter</th>
+      <th>Linkedin Link </th>
+      <th>Post Link</th>
+      <th>Welcome Kit</th>
+      <th>Introduction</th>
+      <th>Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+     
+      {% for xyz in approved %}
+        <td>{{xyz.enquiry.Full_Name}}</td>
+        <td>{{xyz.appointment}}</td>
+        <td>{{xyz.account_link}}</td>
+        <td>{{xyz.post_link}}</td>
+        <td>{{xyz.welcome}}</td>
+        <td>{{xyz.intro}}</td>
+        <td><a href="">
+          <i class="fa-regular fa-pen-to-square"></i></i></a></td>
+     </tr>
+      {% endfor %}
+  </tbody>
+</table>
+</div>
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+    {% else %}
+       <li class="page-item disabled"><span class="page-link">Previous</span></li>
+    {% endif %}
+
+    {% for i in page_obj.paginator.page_range %}
+       {% if page_obj.number == i %}
+      <li class="page-item active"><span class="page-link">{{ i }}</span></li>
+       {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+       <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+    {% else %}
+       <li class="page-item disabled"><span class="page-link">Next</span></li>
+    {% endif %}
+{% endblock %}
+
+

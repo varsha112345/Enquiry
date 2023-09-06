@@ -1,0 +1,40 @@
+{% extends 'Training/tr_home.html' %}
+
+{% block title %}Project Allocation {% endblock title %}
+
+{% block breadcrumb %}
+
+<a class="btn btn-primary" href="{% url 'emanage:training_home' %}"> Back</a>
+  
+{% endblock breadcrumb %}
+
+
+{% block content %}
+      
+
+<div class="table-responsive"> 
+<table class="table table-striped" id="enqtable">
+  <thead style="position:sticky;top:10px;">
+    <tr>
+     
+      <th>Id</th>
+      <th>Candidate name</th>
+      <th>Finalized Intership</th>
+      <th>Add Project</th>
+     
+   </tr>
+  </thead>
+  <tbody>
+  {% for xyz in enquiry_list %}
+    <tr>
+        <td>{{xyz.id}}</td>
+        <td >{{xyz.Full_Name}}</td>
+        <td>{{xyz.Cource_name}}</td>
+        <td><a href="{% url 'emanage:project_allocation' xyz.id %}" class="btn btn-primary">Continue</a></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}
+

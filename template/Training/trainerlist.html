@@ -1,0 +1,35 @@
+{% extends 'Training/tr_home.html' %}
+{% block title %}Trainer List{% endblock title %}
+
+{% block breadcrumb %}
+<a class="btn btn-primary" href="{% url 'emanage:trainer_name_add' %}"><i
+    class="fas fa-plus"></i>Add</a>
+<a class="btn btn-primary" href="{% url 'emanage:training_home' %}"> Back</a>
+{% endblock breadcrumb %}
+{% block content %}
+<div class="table-responsive"> 
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Sr.No</th>
+          <th>Triner Name</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+         
+          {% for xyz in all_list %}
+          <td>{{xyz.id}}</td>
+            <td>{{xyz.trainer_name}}</td>
+            <td><a href="{% url 'emanage:trainer_update' xyz.id %}">
+              <i class="fa-regular fa-pen-to-square"></i></i></a></td>
+        </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+        </div>
+    
+    {% endblock %}
+    
+ 

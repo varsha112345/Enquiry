@@ -1,0 +1,69 @@
+{% extends 'admin/base.html' %}
+
+
+{% block title %}System Not Allocated List{% endblock title %}
+
+{% block breadcrumb %}
+<a class="btn btn-primary" href="{% url 'emanage:system_list' %}"><i
+    class="fas fa-plus"></i> Asset List</a>
+<a class="btn btn-primary" href="{% url 'emanage:admin_page' %}"> Back</a>
+  
+{% endblock breadcrumb %}
+{% block content %}
+      
+
+<div class="table-responsive"> 
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Enquiery</th>
+      <th>Model Name</th>
+      <th>Description</th>
+      <th>Serial No.</th>
+      <th>Purpose</th>
+      <th>Allocation Date</th>
+      <th>Condition</th>
+       <th>Status</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+     
+      {% for xyz in approved %}
+        <td>{{xyz.enquiry.Full_Name}}</td>
+        <td>{{xyz.model_name}}</td>
+        <td>{{xyz.description}}</td>
+        <td>{{xyz.serial_no}}</td>
+        <td>{{xyz.L_purpose}}</td>
+        <td>{{xyz.L_allocation_date}}</td>
+        <td>{{xyz.L_condition}}</td>
+        <td>{{xyz.system_status}}</td>
+      </tr>
+      {% endfor %}
+  </tbody>
+</table>
+</div>
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+    {% else %}
+       <li class="page-item disabled"><span class="page-link">Previous</span></li>
+    {% endif %}
+
+    {% for i in page_obj.paginator.page_range %}
+       {% if page_obj.number == i %}
+      <li class="page-item active"><span class="page-link">{{ i }}</span></li>
+       {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+       <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+    {% else %}
+       <li class="page-item disabled"><span class="page-link">Next</span></li>
+    {% endif %}
+{% endblock %}
+

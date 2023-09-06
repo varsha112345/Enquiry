@@ -1,0 +1,75 @@
+{% extends 'enquiry/index2.html' %}
+
+
+{% block title %}Fees Detail{% endblock title %}
+
+{% block breadcrumb %}
+
+<a class="btn btn-primary" href="{% url 'emanage:account_home' %}"> Back</a>
+
+{% endblock breadcrumb %}
+
+
+{% block content %}
+<div class="table-responsive">
+    <table class="table table-striped" id="enqtable">
+     
+        <thead>
+            <tr>
+                <th>Sr.no</th>
+                <th>Candiate Name</th>
+                <th>Total Installment</th>
+                <th>Amount Paid</th>
+                <th>Amount Date</th>
+                <th>Remark</th>
+                <th>payment Status</th>
+                <th>Reamaining Amount</th>
+                <th>Fees List</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in all_account %}
+            <tr>
+                <td>{{i.id}}</td>
+                <td>{{i.enquiry.Full_Name}}</td>
+                <td>{{i.total_installment}}</td>
+                <td>{{i.amount}}</td>
+                <td>{{i.amount_date}}</td>
+                <td>{{i.account_remark}}</td>
+                <td>{{i.payment_status}}</td>
+                <td>{{i.amount_remaining}}</td>
+                <td>
+                    {% if i.payment_status == 'fourth_installment' %}
+                       <button class="btn btn-success" disabled>Done</button>
+                    {% else %}
+                     <a href="{% url 'emanage:feesList' id=i.enquiry_id %}" class="btn btn-primary">Continue</a>
+                    {% endif %}
+                </td>
+            {% endfor %}
+            </tr>
+        </tbody>
+      
+    </table>
+</div>
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+      {% if page_obj.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+      {% else %}
+        <li class="page-item disabled"><span class="page-link">Previous</span></li>
+      {% endif %}
+  
+      {% for i in page_obj.paginator.page_range %}
+        {% if page_obj.number == i %}
+          <li class="page-item active"><span class="page-link">{{ i }}</span></li>
+        {% else %}
+          <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+      {% endfor %}
+  
+      {% if page_obj.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+      {% else %}
+        <li class="page-item disabled"><span class="page-link">Next</span></li>
+      {% endif %}
+{% endblock %}

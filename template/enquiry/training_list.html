@@ -1,0 +1,45 @@
+{% extends 'enquiry/index.html' %}
+
+
+{% block title %}Total Enquiry{% endblock title %}
+
+{% block breadcrumb %}
+
+<a class="btn btn-primary" href="{% url 'emanage:home' %}"> Back</a>
+  
+{% endblock breadcrumb %}
+{% block content %}
+<div class="table-responsive"> 
+<table class="table table-striped" id="enqtable">
+  <thead style="position:sticky;top:10px;">
+    <tr>
+     
+      <th>Id</th>
+      <th>Candidate name</th>
+      <th>Email ID</th>
+      <th>Phone </th>
+      <th>Area Of Interest</th>
+      <th>Course</th>
+      <th>Duration</th>
+      </tr>
+  </thead>
+  <tbody>
+  {% for data in all_data %}
+    <tr>
+        
+        <td>{{data.id}}</td>
+        <td >{{data.name}}</td>
+        <td>{{data.email}}</td>
+        <td>{{data.phone}}</td>
+        <td>{{data.interest}}</td>
+        <td>{{data.course}}</td>
+        <td>{{data.durations}}</td>
+       
+      
+      
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}

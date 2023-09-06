@@ -1,0 +1,51 @@
+{% extends 'Training/tr_home.html' %}
+{% block content %}
+  <div class="container">
+    <div class="row">
+        <form action="" method="post">
+                {% csrf_token %}
+                <div class="form-group ">
+                  <label for="trainer_name" class="control-label">Course Name</label>
+                  <div class="col-lg-6 col-sm-9">
+                     <input type="text" name="" class="form-control" value="{{course.Cource_name}}" readonly>
+                  </div>
+              </div>
+                <div class="form-group ">
+                    <label for="trainer_name" class="control-label">Trainer Name</label>
+                    <div class="col-lg-6 col-sm-9">
+                        <select class="form-select" name="trainer_name" required>
+                            <option value="">Select Trainer</option>
+                            {% for i in t %}
+                              <option value="{{i.id}}">{{i.trainer_name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+             
+                <input type="submit" class="btn btn-success">
+        </form>
+    </div>
+  </div>
+                <!-- Button trigger modal -->
+
+                <!-- <div class="form-group ">
+                    <label for="trainer_name" class="control-label">Training Phase II</label>
+                    <div class="col-lg-6 col-sm-9">
+                      <input type="text" class="form-control" name="">
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label for="trainer_name" class="control-label">Training Phase III</label>
+                    <div class="col-lg-6 col-sm-9">
+                      <input type="text" class="form-control" name="">
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label for="trainer_name" class="control-label">Training Phase IV</label>
+                    <div class="col-lg-6 col-sm-9">
+                      <input type="text" class="form-control" name="">
+                    </div>
+                </div> -->
+       
+  
+{% endblock %}

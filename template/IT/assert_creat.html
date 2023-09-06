@@ -1,0 +1,99 @@
+{% extends 'IT/it_home.html' %}
+{% block breadcrumb %}
+<!-- <a class="btn btn-primary" href="/system_allocation/{{id}} "><i class="fas fa-plus"></i> Add</a> -->
+<a class="btn btn-primary" href="{% url 'emanage:it_home' %}"> Back</a>
+{% endblock breadcrumb %}
+
+{% block content %}
+
+<body>
+
+    <div class="container justify-conent-center">
+      
+        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5"> Asset Creation Form </h3>
+    </center>
+    <form method="post" class="cmxform form-horizontal" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group ">
+            <label for="category" class="control-label col-lg-3 col-sm-3">Assert Category</label>
+            <div class="col-lg-6 col-sm-9">
+                <select class="form-select" name="category" required>
+                    <option value="">Select- Category</option>
+                    {% for i in cat %} 
+                            
+                    <option value="{{i.id}}">{{i.cname}}</option>
+
+                    {% endfor %}
+                  
+                </select>
+            </div>
+        </div>
+        <div class="form-group ">
+            <label for="a_name" class="control-label col-lg-3">Assert Name</label>
+            <div class="col-lg-6">
+                <input class=" form-control" id="a_name" name="a_name" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="a_description" class="control-label col-lg-3">Description</label>
+            <div class="col-lg-6">
+              <textarea name="a_description" id=""  class="form-control" cols="30" rows="10" required></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="make_year" class="control-label col-lg-3">Manufacture Year</label>
+            <div class="col-lg-6">
+                <input class="form-control" id="make_year" name="make_year" type="text" required>
+            </div>
+        </div>
+        <div class="form-group ">
+            <label for="model_name" class="control-label col-lg-3">Model </label>
+            <div class="col-lg-6">
+                <input class="form-control " id="model_name" name="model_name" type="text" required>
+            </div>
+        </div>
+        <div class="form-group ">
+            <label for="serial_no" class="control-label col-lg-3">Serial Number</label>
+            <div class="col-lg-6">
+                <input class="form-control " id="serial_no" name="serial_no" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="condition" class="control-label col-lg-3">Condition</label>
+            <div class="col-lg-6 col-sm-9">
+                <input type="radio" name="condition" value="new" required>New
+                <input type="radio" name="condition" value="old" required>Old
+            </div>
+        </div>
+
+      
+
+        <div class="form-group">
+            <label for="system" class="control-label col-lg-3 col-sm-3">System</label>
+            <div class="col-lg-6 col-sm-9">
+                <input type="radio" name="system" value="Purchased" required>Purchased
+                <input type="radio" name="system" value="Leased" required>Leased
+            </div>
+        </div>
+
+
+
+        <div class="form-group ">
+            <label for="asset_photo" class="control-label col-lg-3 col-sm-3">Photo</label>
+            <div class="col-lg-6 col-sm-9">
+               
+                <input type="file" name="asset_photo" id="asset_photo"  accept=".png, .jpg, .jpeg" required multiple></td>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-offset-3 col-lg-6">
+                <button class="btn btn-primary" name="submit" type="submit">Save</button>
+                <button class="btn btn-default" name="submit" type="button">Cancel</button>
+            </div>
+        </div>
+    </form>
+     
+    </div>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'Training/tr_home.html' %}
+
+{% block title %}Project Status Detail{% endblock title %}
+
+{% block breadcrumb %}
+<a class="btn btn-primary" href="{% url 'emanage:training_home' %}">Back</a>
+{% endblock breadcrumb %}
+
+{% block content %}
+{% for i in enquiry %}
+<h3><b>Candidate Name:</b> {{ i.Full_Name }}</h3>
+{% endfor %}
+<h3><b>Course Name: </b>{{obj.Cource_name}}</h3>
+<div class="table-responsive">
+  <table class="table table-striped" id="enqtable">
+    <thead>
+      <tr>
+        <th>Sr.No</th>
+        <th>Topic Name</th>
+        <th>Phase I</th>
+        <th>Phase I Date</th>
+        <th>Phase II</th>
+        <th>Phase II Date</th>
+        <th>Phase III</th>
+        <th>Phase III Date</th>
+        <th>Phase IV</th>
+        <th>Phase IV Date</th>
+        <th>Continue</th>
+      </tr>
+    </thead>
+    {% for i in mydata %}
+      <tr>
+      <td>{{forloop.counter}}</td>
+      <td>{{i.topic_name}}</td>
+      <td>{{i.phase_I}}</td>
+      <td>{{i.date1}}</td>
+      <td>{{i.phase_II}}</td>
+      <td>{{i.date2}}</td>
+      <td>{{i.phase_III}}</td>
+      <td>{{i.date3}}</td>
+      <td>{{i.phase_IV}}</td>
+      <td>{{i.date4}}</td>
+      <td>
+      {% if forloop.counter == 1 %}
+        <a href="{% url 'emanage:project_phase1' i.enquiry.id %}" class="btn btn-success">Phase I</a>
+      
+      {% elif forloop.counter == 2 %}
+        <a href="{% url 'emanage:project_phase2' i.enquiry.id %}" class="btn btn-success">Phase II</a>
+      {% elif forloop.counter == 3 %}
+        <a href="{% url 'emanage:project_phase3' i.enquiry.id %}" class="btn btn-success"> Phase III</a>
+      {% elif forloop.counter == 4 %}
+        <a href="{% url 'emanage:project_phase4' i.enquiry.id %}" class="btn btn-success"> Phase IV</a>
+     
+      {% endif %}
+      </td>
+      </tr>
+    
+    
+    {% endfor %}
+      </tbody>
+  </table>
+</div>
+{% endblock %}

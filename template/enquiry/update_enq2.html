@@ -1,0 +1,190 @@
+{% extends 'enquiry/index.html' %}
+{% load static %}
+{% block breadcrumb %}
+
+<a class="btn btn-primary" href="{% url 'emanage:enq_list' %}">Back</a>
+
+{% endblock breadcrumb %}
+
+{% block content %}
+
+<style>
+    .container {
+        border: 2px solid black;
+        border-radius: 25px;
+        height: 100%;
+
+    }
+</style>
+
+<body>
+    <div class="container">
+        <center>
+            <h2>ENQUIRY FORM</h2>
+        </center>
+        <form action="" method="post" class="needs-validation">
+            {% csrf_token %}
+
+            <div class="mb-2 row">
+
+                <label for="fname" class="col-sm-2 col-form-label">Enter Name</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="fname" name="Full_Name" value="{{enq_status.Full_Name}}" readonly >
+                </div>
+
+                <label for="gender" class="col-sm-2 col-form-label">Gender</label>
+                <div class="col-md-2">
+                    <input name="gender"  value="{{enq_status.gender}}" class="form-control" readonly>
+                    
+                </div>
+
+            </div>
+            <div class="mb-2 row">
+                <label for="Address" class="col-sm-2 col-form-label">Address</label>
+                <div class="col-md-4">
+                   <textarea name="Permanent_Address" id="" class="form-control" readonly>{{enq_status.Permanent_Address}}</textarea>
+                </div>
+                <label for="email" class="col-sm-2 col-form-label">Email ID</label>
+                <div class="col-md-4">
+                    <input type="email" class="form-control" id="email" name="Email_Address"  value="{{enq_status.Email_Address}}"
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" readonly>
+                </div>
+            
+
+            </div>
+            <div class="mb-2 row">
+                <label for="dob" class="col-sm-2 col-form-label">DOB</label>
+                <div class="col-md-4">
+                    <input type="date" class="form-control"  name="Date_of_Birth" value="{{enq_status.Date_of_Birth|date:'Y-m-d'}}" readonly>
+                </div>
+                <label for="mobile" class="col-sm-2 col-form-label">Mobile Number</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="mobile" name="Contact_Number" pattern="[7-9]{1}[0-9]{9}"  value="{{enq_status.Contact_Number}}"
+                        required>
+                </div>
+
+            </div>
+            <div class="mb-2 row">
+
+             
+                <label for="whatsapp" class="col-sm-2 col-form-label">Whatsapp Number</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="whatsapp" pattern="[7-9]{1}[0-9]{9}" name="Whatsapp_Number"  value="{{enq_status.Whatsapp_Number}}" readonly>
+                </div>
+                <label for="alternate" class="col-sm-2 col-form-label">Alternate Number</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="alernate" pattern="[7-9]{1}[0-9]{9}" name="Alternate_Number"  value="{{enq_status.Alternate_Number}}" readonly>
+                </div>
+
+
+            </div>
+
+
+            <div class="mb-2 row">
+             
+                <label for="media" class="col-sm-2 col-form-label">How Did You Hear About Us</label>
+                <div class="col-md-4">
+                    <select class="form-select" name="How_did_you_hear_about_us">
+                        <option value="">{{enq_status.How_did_you_hear_about_us}}</option>
+                  
+                    </select>
+                </div>
+                <label for="cname" class="col-sm-2 col-form-label">Intership  Finalized</label>
+                <div class="col-md-4">
+
+                    <select class="form-select" name="Cource_name" required>
+                       
+
+                        <option>{{enq_status.Cource_name}}</option>
+
+                      
+                    </select>
+
+                </div>
+            </div>
+            <div class="mb-2 row">
+
+             
+                <label for="skill" class="col-sm-2 col-form-label">Technical Skill Set</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="skill" name="Technical_Skills" value="{{enq_status.Technical_Skills}}" readonly>
+                </div>
+                <label for="interest" class="col-sm-2 col-form-label">Area of Interest</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="interest" name="Area_of_Intrest" value="{{enq_status.Area_of_Intrest}}" readonly>
+                </div>
+              
+            </div>
+            <div class="mb-2 row">
+
+                <label for="certificate" class="col-sm-2 col-form-label">Certificate If Any </label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="" name="Certification_Done" value="{{enq_status.Certification_Done}}" readonly>
+                </div>
+                <label for="reference" class="col-sm-2 col-form-label">Referance If any </label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="reference" name="reference" value="{{enq_status.reference}}" readonly>
+                </div>
+              
+            </div>
+            <div class="mb-2 row">
+
+            
+                <label for="location" class="col-sm-2 col-form-label">Office Location Preference</label>
+                <div class="col-md-4">
+
+                    <select class="form-select" name="Office_Location_Preference">
+                        <option>{{enq_status.Office_Location_Preference}}</option>
+                     
+                    </select>
+                </div>
+                <label for="mode" class="col-sm-2 col-form-label">Training Mode</label>
+                <div class="col-md-4">
+
+                    <select class="form-select" name="Training_Mode" required>
+                        <option>{{enq_status.Training_Mode}}</option>
+                     
+                    </select>
+
+                </div>
+
+            </div>
+            <div class="mb-2 row">
+            
+              
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <input class="btn btn-primary" type="submit" value="Save & Close">
+                </div>
+                <div class="col-md-4">
+                    <input class="btn btn-primary" onclick="save()" type="submit" value="Submit & Forward">
+                </div>
+                <div class="col-md-4">
+                    <a href="{% url 'emanage:enq_list' %}" class="btn btn-primary">Close</a>
+
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <script>
+        function save() {
+            var userPreference;
+
+            if (confirm("Do you want to Continue ?") == true) {
+                userPreference = "Data saved successfully!";
+            } else {
+                userPreference = "Save Canceled!";
+            }
+
+            document.getElementById("msg").innerHTML = userPreference;
+        }
+        // function showPrice(selectElement) {
+        //    var selectedOption = selectElement.options[selectElement.selectedIndex];
+          //  var price = selectedOption.value.split("|")[1];
+            //document.getElementById("amount").value = price;
+        //} -->
+    </script>
+</body>
+{% endblock %}

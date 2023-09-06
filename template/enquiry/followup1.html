@@ -1,0 +1,97 @@
+{% extends 'enquiry/index.html' %}
+{% load static %}
+{% block title %}Follow Up List{% endblock title %}
+
+{% block breadcrumb %}
+
+<a class="btn btn-primary" href="{% url 'emanage:enq_list' %}">Back</a>
+
+{% endblock breadcrumb %}
+
+{% block content %}
+
+{% for stud in student %}
+<h3><b>Candiate Name: </b> {{stud.name}}</h3>
+<h3><b>Contact Number: </b> {{stud.mobile}} </h3>
+{% endfor %}
+
+<div class="table-responsive"  > 
+  <table class="table table-striped" id="enqtable">
+   
+    <thead>
+      <tr>
+        
+        <th>Name</th>
+        <th>Follow up</th>
+        <th>Followup Time</th>
+        <th>Reason</th>
+        <th>Followup Remark </th>
+     
+       
+      </tr>
+    </thead>
+    <tbody>
+      
+      {% for up in follow_up %}
+      <tr data-href="{% url 'emanage:follow' up.pk  %}">
+
+        <td>{{up.enquiry.Full_Name}}</td>
+        <td>{{up.date}}</td>
+        <td>{{up.time}}</td>
+        <td>{{up.reason}}</td>
+        <td> {{up.remark}}</td>
+     
+       </tr>
+        {% endfor %}
+    </tbody>
+  
+  </table>
+
+</div>
+
+<center>
+    <h1>Followup Form</h1>
+</center>
+{% for mo in all_enquiry %}
+<h3><b>Candiate Name: </b> {{mo.Full_Name}} </h3>
+<h4><b>Contact no :</b>  {{mo.Contact_Number}}</h4>
+{% endfor %}
+
+<div class="container p-4 card">
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="mb-2 row">
+            <label for="date" class="col-sm-2 col-form-label"><b>Followup Date :</b></label>
+            <div class="col-md-2">
+                <input type="date" id="date" name="date"  class="form-control"  value="{{date.value}}" min="{%  now 'Y-m-d' %}">
+
+            </div>
+            <label for="time" class="col-sm-2 col-form-label"><b>Followup Time :</b></label>
+            <div class="col-md-2">
+                <input type="time" class="form-control" id="time" name="time">
+            </div>
+        </div>
+        <div class="mb-2 row">
+            <label for="reason"><b> Select Reason</b> </label>
+            <div class="col-md-8">
+                <select class="form-select" name="reason">
+                    <option value="">Select - An - option</option>
+                    {% for i in myreason %}
+                      <option value="{{i.id}}">{{i.name}}</option>
+                 
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-2 row">
+                <label for="remark"><b> Follow Remark</b></label>
+                <div class="col-md-8">
+                    <textarea name="remark" id="remark" cols="70" rows="2" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="enq_id" id="enq_id" value="{{enq_id}}">
+        <input type="submit" value="submit" class="btn btn-primary" {% if button_disabled %}disabled{% endif %}>
+    </form>
+</div>
+       
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'enquiry/index2.html' %}
+
+
+{% block title %}Fees Detail{% endblock title %}
+
+{% block breadcrumb %}
+
+<a class="btn btn-primary" href="{% url 'emanage:account_home' %}"> Back</a>
+
+{% endblock breadcrumb %}
+{% block content %}
+<div class="table-responsive"> 
+<table class="table table-striped" id="enqtable">
+  <thead style="position:sticky;top:10px;">
+    <tr>
+     
+      <th>Id</th>
+      <th>Candidate name</th>
+      <th>Finilezed Internship</th>
+      <th>Enquiry Status</th>
+    
+    </tr>
+  </thead>
+  <tbody>
+  {% for xyz in final %}
+    <tr>
+        
+        <td>{{xyz.id}}</td>
+        <td >{{xyz.Full_Name}}</td>
+        <td>{{xyz.Cource_name}}</td>
+        <td>{{xyz.enquiry_Status}}</td>
+        <td>
+         
+        </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}

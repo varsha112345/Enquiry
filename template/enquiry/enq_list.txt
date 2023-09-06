@@ -1,0 +1,57 @@
+{% extends 'enquiry/index.html' %}
+
+
+{% block title %}Total Enquiry{% endblock title %}
+
+{% block breadcrumb %}
+<a class="btn btn-primary" href="/enq/{{id}}"><i
+    class="fas fa-plus"></i> Add</a>
+<a class="btn btn-primary" href="{% url 'enq:home' %}"> Back</a>
+  
+{% endblock breadcrumb %}
+{% block content %}
+<div class="table-responsive"> 
+<table class="table table-striped" id="enqtable">
+  <thead style="position:sticky;top:10px;">
+    <tr>
+     
+      <th>Id</th>
+      <th>Candidate name</th>
+      <th>Area Of Interest</th>
+      <th>Technical skill set</th>
+      <th>Finilezed Internship</th>
+      <th>Enquiry Status</th>
+      <th>Status Action</th>
+      <th>Followup List</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+  {% for xyz in enquiry_list %}
+    <tr>
+        
+        <td>{{xyz.id}}</td>
+        <td >{{xyz.Full_Name}}</td>
+        <td>{{xyz.Area_of_Intrest}}</td>
+        <td>{{xyz.Technical_Skills}}</td>
+        <td>{{xyz.Cource_name}}</td>
+       
+      
+        <td>
+          {% if xyz.enquiry_Status == 'Pending' %}
+            <a href="{% url 'enq:enquiry_status_change' xyz.id %}"  class="btn btn-danger">Pending</a> 
+          {% elif xyz.enquiry_Status == 'Finalized' %}
+            <a href="{% url 'enq:whatappstatus' xyz.id %}"  class="btn btn-success">Finalized</a> 
+          {% else %}
+          <a href=""  class="btn btn-success">Informed on Whatapp</a> 
+          {% endif %}
+        </td>
+        <td><a href="{% url 'enq:follow' xyz.id %}" class="btn btn-primary">Continue</a></td>
+        <td><a href="{% url 'enq:follwuplist' xyz.id %}" >Click here</a></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}
+

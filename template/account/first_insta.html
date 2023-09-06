@@ -1,0 +1,161 @@
+{% extends 'enquiry/index.html' %}
+
+{% load static %}
+{% block breadcrumb %}
+
+<a class="btn btn-primary" href="{% url 'enq:paymentlist' %}">Back</a>
+  
+{% endblock breadcrumb %}
+{% block content %}
+    <style>
+        .container {
+            border: 2px solid black;
+            border-radius: 25px;
+            height: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+   
+    <center>
+        <h2>Account Form</h2>
+    </center>
+    <div class="container p-3">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="mb-2 row">
+                <label for="gender" class="col-sm-2 col-form-label">Mr. & Mrs.</label>
+                <div class="col-md-3">
+                    <select class="form-select" name="gender">
+                        <option value="">{{enquiry.gender}}</option>
+                       
+                    </select>
+                </div> <br> <br>
+                <div class="mb-2 row">
+
+                    <label for="fname" class="col-sm-2 col-form-label">First Name</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" id="fname" name="name"  value="{{enquiry.name}}" readonly>
+                    </div>
+
+
+                  
+
+                </div>
+                <div class="mb-2 row">
+
+                    <label for="final" class="col-sm-2 col-form-label">Finalized Internship</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control"  name="Cource_name" value="{{enquiry.Cource_name}}" readonly>
+                    </div>
+                    <label for="total_amount" class="col-sm-2 col-form-label">Total Ammount</label>
+                   
+                    <div class="col-md-4">
+                      
+                        <input type="text" class="form-control" name="total_amount" value="{{data.total_amount}}"  readonly>
+                    </div>
+                    <label for="total_installment" class="col-sm-2 col-form-label">Total Installment</label>
+                   
+                    <div class="col-md-4">
+                      
+                        <input type="text" class="form-control" name="total_installment" value="{{data.total_installment}}"  readonly>
+                    </div>
+                  
+                </div>
+                        <div class="mb-2 row">
+                            <label for="first_installment" class="col-sm-2 col-form-label">First Installement</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control"  name="first_installment" value="{{data.first_installment}}" readonly>
+                            </div>
+                            <label for="third_date" class="col-sm-2 col-form-label">1st Installment Tentative Date</label>
+                            <div class="col-md-4">
+                                <input type="date" class="form-control"  name="pay_date" value="{{data.pay_date|date:'Y-m-d'}}" readonly>
+                            </div>
+                        </div>
+                      <div class="mb-2 row">
+                        <label for="second_installment" class="col-sm-2 col-form-label">2nd Installment Amount</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control"  name="second_installment" value="{{data.second_installment}}" readonly>
+                        </div>
+                        <label for="second_date" class="col-sm-2 col-form-label">2nd Installment Tentative Date</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control"  name="second_date" value="{{data.second_date|date:'Y-m-d'}}" readonly>
+                        </div>
+                    </div> 
+                    <div class="mb-2 row">
+                        <label for="third_installment" class="col-sm-2 col-form-label">3nd Installment Amount</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control"  name="third_installment" value="{{data.third_installment}}" readonly>
+                        </div>
+                        <label for="third_date" class="col-sm-2 col-form-label">3nd Installment Tentative Date</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control"  name="third_date" value="{{data.third_date|date:'Y-m-d'}}" readonly>
+                        </div>
+                    </div>
+                    <div class="mb-2 row">
+                        <label for="four_installment" class="col-sm-2 col-form-label">4nd Installment Amount</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" name="four_installment" value="{{data.four_installment}}" readonly>
+                        </div>
+                        <label for="four_date" class="col-sm-2 col-form-label">4nd Installment Tentative Date</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control"  name="four_date" value="{{data.four_date|date:'Y-m-d'}}" readonly>
+                        </div>
+                    </div>
+                    <hr>
+                    <center><h3>First Installment</h3></center>
+                    <hr>
+                    <div class="mb-2 row">
+                        
+                        <label for="Payment" class="col-sm-2 col-form-label">Mode of Payment</label>
+                        <div class="col-md-4">
+                            <select class="form-select" name="payment_mode" required>
+                                <option value="">Select-An-Option</option>
+                                <option value="Banking Cards">Banking Cards</option>
+                                <option value="UPI">UPI</option>
+                                <option value="Mobile Wallets">Mobile Wallets</option>
+                                <option value="Internet Banking">Internet Banking</option>
+                            </select>
+                        </div>
+                        <label for="receipt" class="col-sm-2 col-form-label">Screeshot</label>
+                        <div class="col-md-4">
+                            <input type="file" class="form-control" id="receipt" name="receipt" required>
+                        </div>
+                    </div>
+                   
+                    <div class="mb-2 row">
+                        <label for="amount" class="col-sm-2 col-form-label">Installement Amount</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control"  name="amount" required>
+                        </div>
+                        <label for="amount_date" class="col-sm-2 col-form-label">Installment  Date</label>
+                        <div class="col-md-4">
+                            <input type="date" class="form-control"  name="amount_date" required>
+                        </div>
+                      
+                    </div>
+                    <div class="mb-2 row">
+                        <label for="account_remark" class="col-sm-2 col-form-label">Remark</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="account_remark" name="account_remark" required>
+                        </div>
+                    </div>
+                    <center>
+                        <div class="row">
+                            <div class="col-md-6">
+                                
+                                <input class="btn btn-primary" type="submit" value="Submit & Forward">
+                            </div>
+                          
+                        </div>
+                    </center>
+        </form>
+    </div>
+{% endblock %}
+
+
+                    </div>
+                   
+                   

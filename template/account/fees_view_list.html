@@ -1,0 +1,70 @@
+{% extends 'enquiry/index2.html' %}
+
+{% block title %}Fees Detail{% endblock title %}
+
+{% block breadcrumb %}
+ <a class="btn btn-primary" href="{% url 'enq:account_home' %}">Back</a>
+{% endblock breadcrumb %}
+
+{% block content %}
+{% for i in enquiry %}
+    <h3><b>Candidate Name:</b> {{ i.name }} </h3>
+    <h3><b>Finalized Internship:</b> {{ i.Cource_name }}</h3>
+{% endfor %}
+
+<div class="table-responsive">
+    <table class="table table-dark table-striped" id="enqtable">
+        <thead>
+            <tr>
+                <th>Sr.No.</th>
+                <th>Total Installment</th>
+                <th>Paid Amount</th>
+                <th>Paid Date</th>
+                <th>Remark</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody> 
+            {% for i in fees_record %}
+                <tr data-href="{% url 'enq:accontpage' i.id %}">
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.total_installment}}</td>
+                    <td>{{i.amount}}</td>
+                    <td>{{i.amount_date}}</td>
+                    <td>{{i.account_remark}}</td>
+                 
+                    <td> 
+                     {% if forloop.counter == 1 %}
+                      
+                            <a href="{% url 'enq:first_installment' i.enquiry.id %}" class="btn btn-success" id="">Payment</a></td>
+                       
+                     {% elif forloop.counter == 2 %}
+                        
+                         
+                            <a href="{% url 'enq:second_installment' i.enquiry.id %}" class="btn btn-primary">First Installment</a>
+                       
+                     {% elif forloop.counter == 3 %}
+                      
+                            <a href="{% url 'enq:third_installment' i.enquiry.id %}" class="btn btn-primary">second Installment</a>
+                            
+                     
+                        
+                     {% elif forloop.counter == 4 %}
+                        
+                         <a href="{% url 'enq:four_installment' i.enquiry.id %}" class="btn btn-primary">Third Installment</a>
+                        
+                       
+                     {% elif  forloop.counter == 5 %}
+                        <a href="{% url 'enq:last_installment' i.enquiry.id %}" class="btn btn-primary">Four Installment</a>
+                         <!-- <button class="btn btn-success" disabled>Four Completed</button> -->
+                       
+                     {% else %}
+                         <button class="btn btn-success" disabled>No Information Available</button>
+                     {% endif %}
+             </td>
+         </tr>
+     {% endfor %}
+ </tbody>
+</table>
+</div>
+{% endblock %}

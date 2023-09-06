@@ -1,0 +1,165 @@
+{% extends 'enquiry/index2.html' %}
+
+{% load static %}
+{% block breadcrumb %}
+
+<a class="btn btn-primary" href="{% url 'enq:account_home' %}">Back</a>
+
+{% endblock breadcrumb %}
+{% block content %}
+<style>
+    .container {
+        border: 2px solid black;
+        border-radius: 25px;
+        height: 100%;
+        margin-top: 20px;
+    }
+</style>
+</head>
+
+<body>
+
+    <center>
+        <h2>Account Form</h2>
+    </center>
+    <div class="container p-3">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="mb-2 row">
+                <label for="gender" class="col-sm-2 col-form-label">Mr. & Mrs.</label>
+                <div class="col-md-3">
+                    <select class="form-select" name="gender">
+                        <option>{{enquiry.gender}}</option>
+
+
+                    </select>
+                </div> <br> <br>
+                <div class="mb-2 row">
+
+                    <label for="fname" class="col-sm-2 col-form-label">First Name</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" id="fname" name="name" value="{{enquiry.name}}"
+                            readonly>
+                    </div>
+
+
+
+
+
+
+                </div>
+                <div class="mb-2 row">
+
+                    <label for="final" class="col-sm-2 col-form-label">Finalized Internship</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="Cource_name" value="{{enquiry.Cource_name}}"
+                            readonly>
+                    </div>
+                    <label for="fees" class="col-sm-2 col-form-label">Internship Fees Amount</label>
+
+                    <div class="col-md-4">
+
+                        <input type="text" class="form-control" id="amount" name="fees" value="{{course.fees}}"
+                            readonly>
+                    </div>
+                    <label for="fees" class="col-sm-2 col-form-label">Discount Amount</label>
+
+                    <div class="col-md-4">
+
+                        <input type="text" class="form-control" name="fees" id="discount" onchange="getPrice()">
+                    </div>
+                    <label for="fees" class="col-sm-2 col-form-label">Total Amount</label>
+
+                    <div class="col-md-4">
+
+                        <input type="text" class="form-control" name="total_amount" id="total">
+                    </div>
+                </div>
+
+
+                <div class="mb-2 row">
+                    <label for="Installments" class="col-md-2 col-form-label">How Many Installments</label>
+                    <div class="col-md-4">
+                        <select class="form-select form-control" name="total_installment" id="total_installment"
+                            onchange="displayFields()" required>
+                            <option value="">Select-An-option</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+                    <label for="payment_mode" class="col-sm-2 col-form-label">Mode of Payment</label>
+                    <div class="col-md-4">
+                        <select class="form-select" name="payment_mode" required>
+                            <option value="">Select-An-Option</option>
+                            <option value="Banking Cards">Banking Cards</option>
+                            <option value="UPI">UPI</option>
+                            <option value="Mobile Wallets">Mobile Wallets</option>
+                            <option value="Internet Banking">Internet Banking</option>
+                        </select>
+                    </div>
+                    <div id="fields"></div>
+                </div>
+                <div class="mb-2 row">
+                    <div class="col-md-4"> </div>
+                    <br> <br>
+                    <script>
+
+                        function displayFields() {
+                            var num = document.getElementById("total_installment").value;
+                            var totalval = document.getElementById("total").value
+                            console.log("num", num)
+                            var installment_value = totalval / num
+                            console.log("installment value", installment_value)
+                            var fieldsDiv = document.getElementById("fields");
+                            fieldsDiv.innerHTML = " ";
+                            for (var i = 1; i <= num; i++) {
+                                fields.appendChild(document.createTextNode("Installement " + (i + 1)));
+                                var input = document.createElement("input");
+                                input.type = "text";
+                                input.id = "installment_" + i;
+                                input.name = "installment_" + i;
+                                input.style.width = "50%";
+                                input.value = installment_value.toFixed(2);
+                                fieldsDiv.appendChild(document.createElement("br"));
+                                var date = document.createElement("input");
+                                date.style.marginLeft = "100px";
+                                date.type = "date";
+                                date.id = "date_" + i;
+                                date.name = "date_" + i;
+                                date.style.width = "30%";
+                                fieldsDiv.appendChild(input);
+                                fieldsDiv.appendChild(date);
+                                fieldsDiv.appendChild(document.createElement("br"));
+                            }
+                        }
+
+                        getPrice = function () {
+                            var numVal1 = Number(document.getElementById("amount").value);
+                            var numVal2 = Number(document.getElementById("discount").value);
+                            var num = document.getElementById("total_installment").value;
+                            var totalValue = numVal1 - numVal2
+                            document.getElementById("total").value = totalValue.toFixed(2);
+                            console.log("total value", totalValue)
+
+
+                        }
+                    </script>
+                </div>
+
+
+
+
+                <center>
+                    <div class="row">
+                        <div class="col-lg">
+
+                            <input class="btn btn-primary" type="submit" value="Submit & Forward">
+                        </div>
+
+                    </div>
+                </center>
+        </form>
+    </div>
+    {% endblock %}

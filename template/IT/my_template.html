@@ -1,0 +1,35 @@
+<form method="POST" action="{% url 'get_data' %}">
+    {% csrf_token %}
+    <select name="dropdown" id="dropdown">
+        <option value="">Select an option</option>
+        {% for obj in myobj %}
+            <option value="{{ obj.id }}">{{ obj.model_name }}</option>
+        {% endfor %}
+    </select>
+    <br><br>
+    <input type="text" name="field1" id="field1" readonly>
+    <br><br>
+    <input type="text" name="field2" id="field2" readonly>
+    <br><br>
+    <input type="text" name="field3" id="field3" readonly>
+    <br><br>
+    <button type="submit">Submit</button>
+</form>
+<script>
+    const dropdown = document.getElementById('dropdown');
+    const field1 = document.getElementById('field1');
+    const field2 = document.getElementById('field2');
+    const field3 = document.getElementById('field3');
+    
+    dropdown.addEventListener('change', (event) => {
+        const selectedValue = event.target.value;
+        fetch(`/get_data?id=${selectedValue}`)
+            .then(response => response.json())
+            .then(data => {
+                field1.value = data.field1;
+                field2.value = data.field2;
+                field3.value = data.field3;
+            })
+            .catch(error => console.log(error));
+    });
+</script>

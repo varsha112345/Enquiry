@@ -1,0 +1,160 @@
+{% extends 'IT/it_home.html' %}
+{% block breadcrumb %}
+<a class="btn btn-primary" href=" {% url 'emanage:assert_creation' %}"><i class="fas fa-plus"></i> Add</a>
+<a class="btn btn-primary" href="{% url 'emanage:allocated' %}"> Back</a>
+{% endblock breadcrumb %}
+
+{% block content %}
+
+<body>
+
+     <div class="row justify-content-center">
+    <center>
+        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">System Allocation Update</h3>
+    </center>
+    <form method="post" class="cmxform form-horizontal" enctype="multipart/form-data" id="myform" data-cities-url="{% url 'emanage:ajax_load_category' %}">
+        {% csrf_token %}
+        <div class="form-group ">
+            <label for="Student Name" class="control-label col-lg-3">Student Name</label>
+            <div class="col-lg-6">
+              
+                  <input class=" form-control" id="" name="Full_Name" value="{{ename.enquiry.Full_Name}}" type="text" readonly>
+             
+            </div>
+        </div>
+      
+        <div class="form-group ">
+            <label for="category" class="control-label col-lg-3 col-sm-3">Assert Category</label>
+            <div class="col-lg-6 col-sm-9">
+                <select class="form-select" name="category" id="id_category" required>
+                    <option value="">{{ename.category}}</option>
+                    {% for i in cat %} 
+                    <option value="{{i.id}}">{{i.cname}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="form-group ">
+            <label for="model_name" class="control-label col-lg-3 col-sm-3">List</label>
+            <div class="col-lg-6 col-sm-9">
+                <select class="form-select" name="model_name" id="model_name" required>
+             
+                    <option value="">{{ename.model_name}}</option>
+               
+                    <!-- {% for i in category %} 
+                        <option value="{{i.id}}">{{model_name}}</option>
+                      
+                    {% endfor %} -->
+                </select>
+            </div>
+        </div>
+       
+       
+        <div class="form-group ">
+            
+            <label for="" class="control-label col-lg-3">Model Name</label>
+            <div class="col-lg-6">
+           
+                <input class=" form-control" id="field1" name="model_name"  value="{{ename.model_name}}" readonly>
+              
+             
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description" class="control-label col-lg-3">Description</label>
+            <div class="col-lg-6">
+              <input name="description" value="{{ename.description}}"  class="form-control" id="field2"  class="form-control" cols="30" rows="10" required></textarea>
+            </div>
+        </div>
+       <div class="form-group ">
+            <label for="serial_no" class="control-label col-lg-3">Serial Number</label>
+            <div class="col-lg-6">
+                <input class="form-control" id="field3" name="serial_no" value="{{ename.serial_no}}" type="text" required>
+            </div>
+        </div>
+           
+        <div class="form-group">
+            <label for="L_condition" class="control-label col-lg-3">Condition</label>
+            <div class="col-lg-6 col-sm-9">
+                <input type="text" name="L_condition" class="form-control " value="{{ename.L_condition}}" readonly>
+             
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="L_purpose" class="control-label col-lg-3 col-sm-3">Purpose</label>
+            <div class="col-lg-6 col-sm-9">
+                <input class="form-control " value="{{ename.L_purpose}}" name="L_purpose" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="L_allocation_date" class="control-label col-lg-3 col-sm-3">Terminations Date</label>
+            <div class="col-lg-6 col-sm-9">
+                <input class="form-control " value="{{ename.L_allocation_date|date:'Y-m-d'}}" name="L_allocation_date" type="date" required>
+            </div>
+        </div>
+       <div class="form-group ">
+            <label for="L_photos" class="control-label col-lg-3 col-sm-3">Photo</label>
+            <div class="col-lg-6 col-sm-9">
+               
+                <input type="file" name="L_photos" class="form-control" value="{{ename.L_photos}}" multiple></td>
+                <img src="{{ename.L_photos.url}}" alt="" width="100px" height="100px">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-offset-3 col-lg-6">
+                <button class="btn btn-primary" name="submit" type="submit" onclick="myfun()">Save</button>
+             
+            </div>
+        </div>
+    </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      $("#id_category").change(function () {
+        var url = $("#myform").attr("data-cities-url");  // get the url of the `load_cities` view
+        var category_id = $(this).val();  // get the selected country ID from the HTML input
+  
+        $.ajax({                       // initialize an AJAX request
+          url:'{% url 'emanage:ajax_load_category' %}',                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+          data: {
+            'category': category_id       // add the country id to the GET parameters
+          },
+          success: function (data) {   // `data` is the return of the `load_cities` view function
+            $("#model_name").html(data);  // replace the contents of the city input with the data that came from the server
+          }
+        });
+  
+      });
+  
+     
+      $(document).ready(function() {
+        $('#model_name').on('change', function() {
+          var selected_option = $(this).val();
+          $.ajax({
+            url:'{% url 'emanage:get_data' %}', 
+            type: 'GET',
+
+            data:{
+                'desktop': selected_option
+            },
+            dataType: 'json',
+            success:function(data){
+                $('#field1').val(data.field1);
+                $('#field2').val(data.field2);
+                $('#field3').val(data.field3);
+            } 
+          })
+         
+        });
+      });
+      function myfun()
+      {
+        alert("Updated Successfully");
+      }
+    </script>
+    
+    
+{% endblock %}
+
+                
